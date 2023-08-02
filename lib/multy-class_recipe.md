@@ -35,7 +35,7 @@ I want to see a list of all of the mobile phone numbers in all my diary entries
  │                         │     │                         │       │                         │
  │  - title                │     │ - title                 │       │  - title                │
  │  - initialise(title)    │     │ - contents              │       │  - phone number         │
- │  - complete()           │     │ - reading_chunks()      │       │  - format()             │
+ │  - complete()           │     │                         │       │  - format()             │
  │                         │     │                         │       │                         │
  └─────────────────────────┘     └─────────────────────────┘       └─────────────────────────┘
 
@@ -53,11 +53,39 @@ I want to see a list of all of the mobile phone numbers in all my diary entries
             #   Adds the entry to the entries list
             pass
 
-        def read_diary_entries():
+        def all():
             # Parameters:
             #   none
             # Returns:
-            #   a list of all diary entries
+            #   a list of all entries
+            pass
+
+        def count_words(self):
+            # Returns:
+            #   An integer representing the number of words in all diary entries
+            # HINT:
+            #   This method should make use of the `count_words` method on DiaryEntry.
+            pass
+
+        def reading_time(self, wpm):
+            # Parameters:
+            #   wpm: an integer representing the number of words the user can read
+            #        per minute
+            # Returns:
+            #   An integer representing an estimate of the reading time in minutes
+            #   if the user were to read all entries in the diary.
+            pass
+
+        def find_best_entry_for_reading_time(self, wpm, minutes):
+            # Parameters:
+            #   wpm:     an integer representing the number of words the user can
+            #            read per minute
+            #   minutes: an integer representing the number of minutes the user has
+            #            to read
+            # Returns:
+            #   An instance of DiaryEntry representing the entry that is closest to,
+            #   but not over, the length that the user could read in the minutes
+            #   they have available given their reading speed.
             pass
 
 
@@ -70,20 +98,6 @@ I want to see a list of all of the mobile phone numbers in all my diary entries
         def __init__(self, title, contents): # title, contents are strings
             # Side-effects:
             #   Sets the title and contents properties
-            pass
-        
-        def reading_chunk(self, wpm, minutes):
-            # Parameters:
-            #   wpm: an integer representing the number of words the user can read
-            #        per minute
-            #   minutes: an integer representing the number of minutes the user has
-            #            to read
-            # Returns:
-            #   A string representing a chunk of the contents that the user could
-            #   read in the given number of minutes.
-            # If called again, `reading_chunk` should return the next chunk,
-            # skipping what has already been read, until the contents is fully read.
-            # The next call after that it should restart from the beginning.
             pass
 
     class Todo:
@@ -177,3 +191,47 @@ assert contact.tel ==> "0777777777"
 
 Diary
 
+"""
+Initially, has an empty list of entries
+"""
+
+diary = Diary()
+diary.all() == []
+
+"""
+Given I add two diary entries
+I see them back in the list
+"""
+
+diary = Diary()
+entry_1 = DiaryEntry("My title 1", "My contents 1")
+entry_2 = DiaryEntry("My title 2", "My contents 2")
+diary.add(entry_1)
+diary.add(entry_2)
+assert diary.all() == [entry_1, entry_2]
+
+"""
+Given I add one diary entry and one todo task
+I see them back in the list
+"""
+
+diary = Diary()
+entry_1 = DiaryEntries("My title 1", "My contents 1")
+todo_1 = Todo("Do tests")
+diary.add(entry_1)
+diary.add(todo_1)
+diary.all() ==> [entry_1, todo_1]
+
+"""
+Given I add one diary entry, one todo task, one contact
+I see them back in the list
+"""
+
+diary = Diary()
+entry_1 = DiaryEntries("My title 1", "My contents 1")
+todo_1 = Todo("Do tests")
+contact_1 = Contacts("Alina", "07777777777")
+diary.add(entry_1)
+diary.add(todo_1)
+diary.add(contact_1)
+diary.all() ==> [entry_1, todo_1, contact_1]
